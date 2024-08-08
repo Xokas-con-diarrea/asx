@@ -211,6 +211,11 @@
         task.spawn(spin)
             print('[cb] MyToggle changed to:', v)
     end)
+    Sector1:AddDropdown("Select Gacha",{ 'OPCrate', 'Avatar', 'CursedTechnique', 'Stand', "Bankai", "Element", "Kagune", "Bloodline", "KiTechnique", "Race", "Quinque", "Titan1" , "Titan2" , "Grimoire1" , "Grimoire2", "Alchemy" , "Breathing" , "DemonArt" , "FightingStyle" , "Commandment" , "Sin" , "Sign" , "FireLevel", "SovereignPower", "Title" , "DuelCard" , "VikingTechnique" , "PsychicPower", "MuscleSkill" , "Magic" , "Transformation" , "DemonicPower" }, false ,false , function(v)
+        settings.selectSpin = v
+        print('[cb] Dropdown got changed. New value:', v)
+    end)
+    Sector1:AddSeperator("")
     Sector1:AddToggle("Auto Spin Player Passive", false, function(v)
         settings.autoplayer = v
         task.spawn(player)
@@ -253,7 +258,7 @@
         task.spawn(ExtremeTT)
             print('[cb] MyToggle changed to:', v)
     end)
-    Sector1:AddSeperator("")
+    
     DungeonSector:AddSeperator("")
 
     DungeonSector:AddLabel('Easy Dungeon '..etimeToOpen)
@@ -266,10 +271,7 @@
     DungeonSector:AddSeperator("")
     DungeonSector:AddLabel('Extreme Dungeon '..extimeToOpen)
 
-    Sector1:AddDropdown("Select Gacha",{ 'OPCrate', 'Avatar', 'CursedTechnique', 'Stand', "Bankai", "Element", "Kagune", "Bloodline", "KiTechnique", "Race", "Quinque", "Titan1" , "Titan2" , "Grimoire1" , "Grimoire2", "Alchemy" , "Breathing" , "DemonArt" , "FightingStyle" , "Commandment" , "Sin" , "Sign" , "FireLevel", "SovereignPower", "Title" , "DuelCard" , "VikingTechnique" , "PsychicPower", "MuscleSkill" , "Magic" , "Transformation" , "DemonicPower" }, false ,false , function(v)
-        settings.selectSpin = v
-        print('[cb] Dropdown got changed. New value:', v)
-    end)
+
 
     UpgradeSector:AddDropdown("Select type of upgrade",{ "Damage", "Energy", "Souls", "Luck" }, false ,false , function(v)
         settings.selectUpgrade = v
