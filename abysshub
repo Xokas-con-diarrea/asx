@@ -1,0 +1,279 @@
+    local version = "0.1"
+
+    benchmark_time = os.clock()
+
+    local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jeikaru/Roblox/main/AD_GUI"))()
+    local Window = library:CreateWindow("Abyss | ".."Anime Souls X".." |".. " Jei GUI ".. " "..version)
+    local Spin = Window:CreateTab("Spin")
+    local Dungeon = Window:CreateTab("Dungeon")
+
+
+
+    local settings = {
+        autospin = false,
+        autoupgrade = false,
+        autoplayer = false,
+        selectSpin = "CursedTechnique",
+        selectUpgrade = "Energy",
+        easydung = false,
+        mediumdung = false,
+        harddung = false,
+        extremedung = false,
+        insanedung = false
+    } 
+
+    local rootPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+    local replicatedStorage = game:GetService("ReplicatedStorage")
+    local edungeon = replicatedStorage:WaitForChild("_SERVER"):WaitForChild("Dungeon"):WaitForChild("Easy")
+    local mdungeon = replicatedStorage:WaitForChild("_SERVER"):WaitForChild("Dungeon"):WaitForChild("Medium")
+    local hdungeon = replicatedStorage:WaitForChild("_SERVER"):WaitForChild("Dungeon"):WaitForChild("Hard")
+    local idungeon = replicatedStorage:WaitForChild("_SERVER"):WaitForChild("Dungeon"):WaitForChild("Insane")
+    local exdungeon = replicatedStorage:WaitForChild("_SERVER"):WaitForChild("Dungeon"):WaitForChild("Extreme")
+    local eStatus = edungeon:GetAttribute("Status")
+    local mStatus = mdungeon:GetAttribute("Status")
+    local hStatus = hdungeon:GetAttribute("Status")
+    local iStatus = idungeon:GetAttribute("Status")
+    local exStatus = exdungeon:GetAttribute("Status")
+    local etimeToOpen = edungeon:GetAttribute("TimeToOpen")
+    local mtimeToOpen = mdungeon:GetAttribute("TimeToOpen")
+    local htimeToOpen = hdungeon:GetAttribute("TimeToOpen")
+    local itimeToOpen = idungeon:GetAttribute("TimeToOpen")
+    local extimeToOpen = exdungeon:GetAttribute("TimeToOpen")
+    
+
+
+    function spin()
+        while settings.autospin do
+            local args = {
+               [1] = {
+                  [1] = {
+                     [1] = "\3",
+                     [2] = settings.selectSpin,
+                     [3] = "Spin"
+                  }
+               }
+            }
+            local remoteEvent = replicatedStorage:FindFirstChild("RemoteEvent")
+            if remoteEvent then
+               remoteEvent:FireServer(unpack(args))
+            else
+               warn("RemoteEvent no encontrado en ReplicatedStorage")
+            end
+      
+            wait(0.1)
+        end
+    end
+    function player()
+        while settings.autoplayer do 
+        local args = {
+          [1] = {
+              [1] = {
+                  [1] = "\3",
+                  [2] = "Passive",
+                  [3] = "PlayerSpin"
+              }
+          }
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+        wait(0.1)
+        end
+    end
+    function upgrade()
+        while settings.autoupgrade do
+            local args = {
+              [1] = {
+                  [1] = {
+                      [1] = "\3",
+                      [2] = "Amulets",
+                      [3] = "Upgrade",
+                      [4] = settings.selectUpgrade
+                    } 
+              }
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+            
+            wait(0.1)         
+        end
+    end
+    function EasyTT()
+        while settings.easydung do
+           if eStatus == "Opened" then
+            rootPart.CFrame = CFrame.new(199, 6287, -962)
+           end
+           wait(1)
+        end
+    end
+     
+     function MediumTT()
+        while settings.mediumdung do
+           if mStatus == "Opened" then
+              local args = {
+                 [1] = {
+                     [1] = {
+                         [1] = "\3",
+                         [2] = "Dungeon",
+                         [3] = "Join",
+                         [4] = "Medium"
+                     }
+                 }
+             }
+             
+             replicatedStorage:WaitForChild("RemoteEvent"):FireServer(unpack(args))
+             
+           end
+           wait(1)
+        end
+    end
+     
+    function HardTT()
+        while settings.harddung do
+           if hStatus == "Opened" then
+              local args = {
+                 [1] = {
+                     [1] = {
+                         [1] = "\3",
+                         [2] = "Dungeon",
+                         [3] = "Join",
+                         [4] = "Hard"
+                     }
+                 }
+             }
+             
+             replicatedStorage:WaitForChild("RemoteEvent"):FireServer(unpack(args))
+             
+           end
+           wait(1)
+        end
+    end
+     
+    function InsaneTT()
+        while settings.insanedung do
+           if iStatus == "Opened" then
+              local args = {
+                 [1] = {
+                     [1] = {
+                         [1] = "\3",
+                         [2] = "Dungeon",
+                         [3] = "Join",
+                         [4] = "Insane"
+                     }
+                 }
+             }
+             
+             replicatedStorage:WaitForChild("RemoteEvent"):FireServer(unpack(args))
+             
+           end
+           wait(1)
+        end
+    end
+     
+    function ExtremeTT()
+        while settings.extremedung do
+           if exStatus == "Opened" then
+              local args = {
+                 [1] = {
+                     [1] = {
+                         [1] = "\3",
+                         [2] = "Dungeon",
+                         [3] = "Join",
+                         [4] = "Extreme"
+                     }
+                 }
+             }
+             
+             replicatedStorage:WaitForChild("RemoteEvent"):FireServer(unpack(args))
+             
+           end
+           wait(90)
+        end
+    end
+     
+
+    local Sector1 = Spin:CreateSector("Spin", "left")
+    local UpgradeSector = Spin:CreateSector("Upgrade Artifact", "left")
+    local DungeonSector = Dungeon:CreateSector("Auto Dungeon", "left")
+
+    local timeLabel = DungeonSector:AddLabel("Time: " .. os.time())
+
+    local function updateTimeLabel()
+        while true do
+            local currentTime = os.time()
+            timeLabel:Set("Time: " ..etimeToOpen)
+            wait(1)
+        end
+    end 
+
+    spawn(updateTimeLabel)
+
+    Sector1:AddToggle("AutoSpin", false, function(v)
+        settings.autospin = v
+        task.spawn(spin)
+            print('[cb] MyToggle changed to:', v)
+    end)
+    Sector1:AddToggle("Auto Spin Player Passive", false, function(v)
+        settings.autoplayer = v
+        task.spawn(player)
+            print('[cb] MyToggle changed to:', v)
+    end)
+
+    UpgradeSector:AddToggle("Auto Upgrade", false, function(v)
+        settings.autoupgrade = v
+        task.spawn(upgrade)
+            print('[cb] MyToggle changed to:', v)
+    end)
+
+
+    DungeonSector:AddToggle("Auto Easy Dungeon", false, function(v)
+        settings.easydung = v
+        task.spawn(EasyTT)
+            print('[cb] MyToggle changed to:', v)
+    end)
+
+    DungeonSector:AddToggle("Auto Medium Dungeon", false, function(v)
+        settings.mediumdung = v
+        task.spawn(MediumTT)
+            print('[cb] MyToggle changed to:', v)
+    end)
+
+    DungeonSector:AddToggle("Auto Hard Dungeon", false, function(v)
+        settings.harddung = v
+        task.spawn(HardTT)
+            print('[cb] MyToggle changed to:', v)
+    end)
+
+    DungeonSector:AddToggle("Auto Insane Dungeon", false, function(v)
+        settings.insanedung = v
+        task.spawn(InsaneTT)
+            print('[cb] MyToggle changed to:', v)
+    end)
+
+    DungeonSector:AddToggle("Auto Extreme Dungeon", false, function(v)
+        settings.extremedung = v
+        task.spawn(ExtremeTT)
+            print('[cb] MyToggle changed to:', v)
+    end)
+    Sector1:AddSeperator("")
+    DungeonSector:AddSeperator("")
+
+    DungeonSector:AddLabel('Easy Dungeon '..etimeToOpen)
+    DungeonSector:AddSeperator("")
+    DungeonSector:AddLabel('Medium Dungeon '..mtimeToOpen)
+    DungeonSector:AddSeperator("")
+    DungeonSector:AddLabel('Hard Dungeon '..htimeToOpen)
+    DungeonSector:AddSeperator("")
+    DungeonSector:AddLabel('Insane Dungeon '..itimeToOpen)
+    DungeonSector:AddSeperator("")
+    DungeonSector:AddLabel('Extreme Dungeon '..extimeToOpen)
+
+    Sector1:AddDropdown("Select Gacha",{ 'OPCrate', 'Avatar', 'CursedTechnique', 'Stand', "Bankai", "Element", "Kagune", "Bloodline", "KiTechnique", "Race", "Quinque", "Titan1" , "Titan2" , "Grimoire1" , "Grimoire2", "Alchemy" , "Breathing" , "DemonArt" , "FightingStyle" , "Commandment" , "Sin" , "Sign" , "FireLevel", "SovereignPower", "Title" , "DuelCard" , "VikingTechnique" , "PsychicPower", "MuscleSkill" , "Magic" , "Transformation" , "DemonicPower" }, false ,false , function(v)
+        settings.selectSpin = v
+        print('[cb] Dropdown got changed. New value:', v)
+    end)
+
+    UpgradeSector:AddDropdown("Select type of upgrade",{ "Damage", "Energy", "Souls", "Luck" }, false ,false , function(v)
+        settings.selectUpgrade = v
+        print('[cb] Dropdown got changed. New value:', v)
+    end)
+
+    spawn(updateTimeLabel)
